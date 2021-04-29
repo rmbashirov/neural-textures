@@ -26,3 +26,5 @@ git+https://github.com/nghorbani/configer
 
 git+https://github.com/qubvel/segmentation_models.pytorch
 git+https://github.com/Cadene/pretrained-models.pytorch
+
+git+git://github.com/rmbashirov/minimal_pytorch_rasterizer.git@de2e1eb9d563e5dbb7b40525829c90ac04f74ef6

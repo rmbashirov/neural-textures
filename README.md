@@ -15,22 +15,12 @@ To use this repository you first need to download model checkpoints and some aux
 * Download SMPL-X models (`SMPLX_{MALE,FEMALE,NEUTRAL}.pkl`) from [SMPL-X project page](https://smpl-x.is.tue.mpg.de/) and move them to `data/smplx/`
 
 ### Docker
-The easiest way to build an environment for this repository is to use docker image. To build it, make the following steps:
-1. Build the image with the following command:
-```
-bash docker/build.sh
-```
-2. Start a container:
-```
-bash docker/run.sh
-```
-It mounts root directory of the host system to `/mounted/` inside docker and sets cloned repository path as a starting directory.
+The easiest way to build an environment for this repository is to use docker.
 
-3. **Inside the container** install `minimal_pytorch_rasterizer`. (Unfortunately, docker fails to install it during image building)
-```
-pip install git+https://github.com/rmbashirov/minimal_pytorch_rasterizer
-```
-4. *(Optional)* You can then commit changes to the image so that you don't need to install  `minimal_pytorch_rasterizer` for every new container. See [docker documentation](https://docs.docker.com/engine/reference/commandline/commit/).
+1. - Install `docker` and `nvidia-docker`, [set](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/user-guide.html#daemon-configuration-file) `nvidia` your default runtime for docker, [add](https://docs.docker.com/engine/install/linux-postinstall/) current user to docker group
+2. Build docker images: `make build`
+3. Run docker container: `make run`
+It mounts root directory of the host system to `/mounted/` inside docker and sets cloned repository path as a starting directory.
 
 ## Usage   
 For now the only scenario in this repository involves rendering an image of a person from *AzurePeople* dataset with giver SMPL-X parameters.

@@ -46,7 +46,8 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility,graphics
 
 ENV PYOPENGL_PLATFORM egl
 
-COPY docker/10_nvidia.json /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+RUN echo '{"file_format_version": "1.0.0", "ICD": {"library_path": "libEGL_nvidia.so.0"}}' | \
+    tee /usr/share/glvnd/egl_vendor.d/10_nvidia.json
 
 ## glew installation from source
 RUN curl -L https://downloads.sourceforge.net/project/glew/glew/2.1.0/glew-2.1.0.tgz > /tmp/glew-2.1.0.tgz
@@ -87,12 +88,9 @@ RUN wget --quiet https://repo.continuum.io/miniconda/Miniconda3-py37_4.8.3-Linux
 RUN pip install --upgrade pip
 
 ## requirements
+RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 COPY requirements.txt requirements.txt
 RUN pip --no-cache-dir install -r requirements.txt
-RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
-
-## FAILS TO RUN DURING DOKER BUILD, INSTALL INSIDE DOCKER
-#RUN pip install git+https://github.com/rmbashirov/minimal_pytorch_rasterizer
 
 
 # docker setup
